@@ -54,12 +54,6 @@
     <ClInclude Include="..\..\Source\Shooter\Scripts\P1Pawn.h">
       <Filter>Source\Shooter\Scripts</Filter>
     </ClInclude>
-    <ClCompile Include="..\..\Source\Shooter\Scripts\PlayerActor.cpp">
-      <Filter>Source\Shooter\Scripts</Filter>
-    </ClCompile>
-    <ClInclude Include="..\..\Source\Shooter\Scripts\PlayerActor.h">
-      <Filter>Source\Shooter\Scripts</Filter>
-    </ClInclude>
     <ClCompile Include="..\..\Source\Shooter\Scripts\TheGameModeBase.cpp">
       <Filter>Source\Shooter\Scripts</Filter>
     </ClCompile>

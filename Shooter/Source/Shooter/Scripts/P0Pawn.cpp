@@ -35,6 +35,9 @@ void AP0Pawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 	PlayerInputComponent->BindAxis("P0MovementVertical", this, &AP0Pawn::MoveVertical);
 	PlayerInputComponent->BindAxis("P0LookHorizontal", this, &AP0Pawn::LookHorizontal);
 	PlayerInputComponent->BindAxis("P0LookVertical", this, &AP0Pawn::LookVertical);
+
+	PlayerInputComponent->BindAction("P0Jump", IE_Pressed, this, &AP0Pawn::Jump);
+	PlayerInputComponent->BindAction("P0Shoot", IE_Pressed, this, &AP0Pawn::Shoot);
 }
 
 
@@ -58,4 +61,12 @@ void AP0Pawn::LookHorizontal(float value) {
 
 void AP0Pawn::LookVertical(float value) {
 	AddControllerPitchInput(-value);
+}
+
+void AP0Pawn::Jump() {
+
+}
+
+void AP0Pawn::Shoot() {
+
 }

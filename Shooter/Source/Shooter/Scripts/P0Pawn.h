@@ -28,6 +28,10 @@ protected:
 	void LookHorizontal(float value);
 	void LookVertical(float value);
 
+	void Jump();
+
+	void Shoot();
+
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
