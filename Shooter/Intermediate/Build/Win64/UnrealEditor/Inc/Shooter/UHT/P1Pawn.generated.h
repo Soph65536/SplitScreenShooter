@@ -14,7 +14,7 @@ PRAGMA_DISABLE_DEPRECATION_WARNINGS
 #endif
 #define SHOOTER_P1Pawn_generated_h
 
-#define FID_Users_sophe_Documents_Unreal_Projects_SplitScreenShooter_Shooter_Source_Shooter_Scripts_P1Pawn_h_12_INCLASS_NO_PURE_DECLS \
+#define FID_User1_Documents___Unreal_Projects___SplitScreenShooter_Shooter_Source_Shooter_Scripts_P1Pawn_h_12_INCLASS_NO_PURE_DECLS \
 private: \
 	static void StaticRegisterNativesAP1Pawn(); \
 	friend struct Z_Construct_UClass_AP1Pawn_Statics; \
@@ -23,7 +23,7 @@ public: \
 	DECLARE_SERIALIZER(AP1Pawn)
 
 
-#define FID_Users_sophe_Documents_Unreal_Projects_SplitScreenShooter_Shooter_Source_Shooter_Scripts_P1Pawn_h_12_ENHANCED_CONSTRUCTORS \
+#define FID_User1_Documents___Unreal_Projects___SplitScreenShooter_Shooter_Source_Shooter_Scripts_P1Pawn_h_12_ENHANCED_CONSTRUCTORS \
 private: \
 	/** Private move- and copy-constructors, should never be used */ \
 	AP1Pawn(AP1Pawn&&); \
@@ -35,12 +35,12 @@ public: \
 	NO_API virtual ~AP1Pawn();
 
 
-#define FID_Users_sophe_Documents_Unreal_Projects_SplitScreenShooter_Shooter_Source_Shooter_Scripts_P1Pawn_h_9_PROLOG
-#define FID_Users_sophe_Documents_Unreal_Projects_SplitScreenShooter_Shooter_Source_Shooter_Scripts_P1Pawn_h_12_GENERATED_BODY \
+#define FID_User1_Documents___Unreal_Projects___SplitScreenShooter_Shooter_Source_Shooter_Scripts_P1Pawn_h_9_PROLOG
+#define FID_User1_Documents___Unreal_Projects___SplitScreenShooter_Shooter_Source_Shooter_Scripts_P1Pawn_h_12_GENERATED_BODY \
 PRAGMA_DISABLE_DEPRECATION_WARNINGS \
 public: \
-	FID_Users_sophe_Documents_Unreal_Projects_SplitScreenShooter_Shooter_Source_Shooter_Scripts_P1Pawn_h_12_INCLASS_NO_PURE_DECLS \
-	FID_Users_sophe_Documents_Unreal_Projects_SplitScreenShooter_Shooter_Source_Shooter_Scripts_P1Pawn_h_12_ENHANCED_CONSTRUCTORS \
+	FID_User1_Documents___Unreal_Projects___SplitScreenShooter_Shooter_Source_Shooter_Scripts_P1Pawn_h_12_INCLASS_NO_PURE_DECLS \
+	FID_User1_Documents___Unreal_Projects___SplitScreenShooter_Shooter_Source_Shooter_Scripts_P1Pawn_h_12_ENHANCED_CONSTRUCTORS \
 private: \
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
 
@@ -48,7 +48,7 @@ PRAGMA_ENABLE_DEPRECATION_WARNINGS
 template<> SHOOTER_API UClass* StaticClass<class AP1Pawn>();
 
 #undef CURRENT_FILE_ID
-#define CURRENT_FILE_ID FID_Users_sophe_Documents_Unreal_Projects_SplitScreenShooter_Shooter_Source_Shooter_Scripts_P1Pawn_h
+#define CURRENT_FILE_ID FID_User1_Documents___Unreal_Projects___SplitScreenShooter_Shooter_Source_Shooter_Scripts_P1Pawn_h
 
 
 PRAGMA_ENABLE_DEPRECATION_WARNINGS
