@@ -1,0 +1,21 @@
+/NOLOGO
+/errorReport:prompt
+/MACHINE:x64
+/SUBSYSTEM:WINDOWS
+/DEF
+/NAME:"UnrealEditor-Shooter.dll"
+/IGNORE:4221
+/NODEFAULTLIB
+"C:\Users\sophe\Documents\Unreal Projects\SplitScreenShooter\Shooter\Intermediate\Build\Win64\x64\ShooterEditor\Development\UnrealEd\SharedPCH.UnrealEd.Project.ValApi.Cpp20.h.obj"
+"C:\Users\sophe\Documents\Unreal Projects\SplitScreenShooter\Shooter\Intermediate\Build\Win64\x64\UnrealEditor\Development\Shooter\P0Pawn.gen.cpp.obj"
+"C:\Users\sophe\Documents\Unreal Projects\SplitScreenShooter\Shooter\Intermediate\Build\Win64\x64\UnrealEditor\Development\Shooter\P1Pawn.gen.cpp.obj"
+"C:\Users\sophe\Documents\Unreal Projects\SplitScreenShooter\Shooter\Intermediate\Build\Win64\x64\UnrealEditor\Development\Shooter\PlayerActor.gen.cpp.obj"
+"C:\Users\sophe\Documents\Unreal Projects\SplitScreenShooter\Shooter\Intermediate\Build\Win64\x64\UnrealEditor\Development\Shooter\Shooter.init.gen.cpp.obj"
+"C:\Users\sophe\Documents\Unreal Projects\SplitScreenShooter\Shooter\Intermediate\Build\Win64\x64\UnrealEditor\Development\Shooter\TheGameModeBase.gen.cpp.obj"
+"C:\Users\sophe\Documents\Unreal Projects\SplitScreenShooter\Shooter\Intermediate\Build\Win64\x64\UnrealEditor\Development\Shooter\Shooter.cpp.obj"
+"C:\Users\sophe\Documents\Unreal Projects\SplitScreenShooter\Shooter\Intermediate\Build\Win64\x64\UnrealEditor\Development\Shooter\P0Pawn.cpp.obj"
+"C:\Users\sophe\Documents\Unreal Projects\SplitScreenShooter\Shooter\Intermediate\Build\Win64\x64\UnrealEditor\Development\Shooter\P1Pawn.cpp.obj"
+"C:\Users\sophe\Documents\Unreal Projects\SplitScreenShooter\Shooter\Intermediate\Build\Win64\x64\UnrealEditor\Development\Shooter\PlayerActor.cpp.obj"
+"C:\Users\sophe\Documents\Unreal Projects\SplitScreenShooter\Shooter\Intermediate\Build\Win64\x64\UnrealEditor\Development\Shooter\TheGameModeBase.cpp.obj"
+"C:\Users\sophe\Documents\Unreal Projects\SplitScreenShooter\Shooter\Intermediate\Build\Win64\x64\UnrealEditor\Development\Shooter\Default.rc2.res"
+/OUT:"C:\Users\sophe\Documents\Unreal Projects\SplitScreenShooter\Shooter\Intermediate\Build\Win64\x64\UnrealEditor\Development\Shooter\UnrealEditor-Shooter.lib"

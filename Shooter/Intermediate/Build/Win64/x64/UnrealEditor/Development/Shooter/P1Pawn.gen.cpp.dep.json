@@ -1,0 +1,15 @@
+{
+    "Version": "1.2",
+    "Data": {
+        "Source": "c:\\users\\sophe\\documents\\unreal projects\\splitscreenshooter\\shooter\\intermediate\\build\\win64\\unrealeditor\\inc\\shooter\\uht\\p1pawn.gen.cpp",
+        "ProvidedModule": "",
+        "PCH": "c:\\users\\sophe\\documents\\unreal projects\\splitscreenshooter\\shooter\\intermediate\\build\\win64\\x64\\shootereditor\\development\\unrealed\\sharedpch.unrealed.project.valapi.cpp20.h.pch",
+        "Includes": [
+            "c:\\users\\sophe\\documents\\unreal projects\\splitscreenshooter\\shooter\\intermediate\\build\\win64\\x64\\unrealeditor\\development\\shooter\\definitions.shooter.h",
+            "c:\\users\\sophe\\documents\\unreal projects\\splitscreenshooter\\shooter\\source\\shooter\\scripts\\p1pawn.h",
+            "c:\\users\\sophe\\documents\\unreal projects\\splitscreenshooter\\shooter\\intermediate\\build\\win64\\unrealeditor\\inc\\shooter\\uht\\p1pawn.generated.h"
+        ],
+        "ImportedModules": [],
+        "ImportedHeaderUnits": []
+    }
+}
