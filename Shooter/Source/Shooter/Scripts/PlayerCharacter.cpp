@@ -73,6 +73,10 @@ void APlayerCharacter::Jump() {
 }
 
 void APlayerCharacter::Shoot() {
-	ABullet* NewBullet = GetWorld()->SpawnActor<ABullet>(GetActorLocation(), GetControlRotation());
-	//NewBullet->AddImpulse(GetActorForwardVector(), shootForce);
+	FActorSpawnParameters spawnParams;
+	spawnParams.Owner = this;
+	spawnParams.Instigator = this;
+
+	ABullet* NewBullet = GetWorld()->SpawnActor<ABullet>(BulletBP, GetActorLocation(), GetControlRotation(), spawnParams);//!!!!!!!!change actor location to the camera/spring arm locations
+	Cast<UStaticMeshComponent>(NewBullet->GetRootComponent())->AddForce(GetActorForwardVector() * shootForce); //get root component of bullet, cast it to mesh then add force to it
 }

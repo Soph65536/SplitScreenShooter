@@ -49,12 +49,6 @@
     <ClInclude Include="..\..\Source\Shooter\Scripts\Bullet.h">
       <Filter>Source\Shooter\Scripts</Filter>
     </ClInclude>
-    <ClCompile Include="..\..\Source\Shooter\Scripts\PlayerActor.cpp">
-      <Filter>Source\Shooter\Scripts</Filter>
-    </ClCompile>
-    <ClInclude Include="..\..\Source\Shooter\Scripts\PlayerActor.h">
-      <Filter>Source\Shooter\Scripts</Filter>
-    </ClInclude>
     <ClCompile Include="..\..\Source\Shooter\Scripts\PlayerCharacter.cpp">
       <Filter>Source\Shooter\Scripts</Filter>
     </ClCompile>
@@ -67,5 +61,6 @@
     <ClInclude Include="..\..\Source\Shooter\Scripts\TheGameModeBase.h">
       <Filter>Source\Shooter\Scripts</Filter>
     </ClInclude>
+    <None Include="cpp.hint" />
   </ItemGroup>
 </Project>

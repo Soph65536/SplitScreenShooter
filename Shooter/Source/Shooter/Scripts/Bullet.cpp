@@ -11,9 +11,6 @@ ABullet::ABullet()
 
 	BulletMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Bullet Mesh"));
 	RootComponent = BulletMesh;
-
-	BulletMesh->SetStaticMesh("Engine/BasicShapes/Cube");
-	BulletMesh->SetMaterial("Engine/BasicShapes/BasicShapeMaterial");
 }
 
 // Called when the game starts or when spawned

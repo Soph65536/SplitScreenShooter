@@ -2,6 +2,8 @@
 
 #pragma once
 
+#include "Shooter/Scripts/Bullet.h"
+
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
 #include "PlayerCharacter.generated.h"
@@ -13,11 +15,14 @@ class SHOOTER_API APlayerCharacter : public ACharacter
 
 	const float moveSpeed = 1;
 	const float jumpHeight = 1000;
-	const float shootForce = 10000;
+	const float shootForce = 100000;
 
 public:
 	// Sets default values for this character's properties
 	APlayerCharacter();
+
+	UPROPERTY(EditAnywhere)
+		TSubclassOf<ABullet> BulletBP;
 
 
 protected:
