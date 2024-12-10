@@ -43,6 +43,12 @@
     <Filter Include="Source\Shooter\Scripts">
       <UniqueIdentifier>{59359407-1A4A-3C77-911C-EA95D1472AB1}</UniqueIdentifier>
     </Filter>
+    <ClCompile Include="..\..\Source\Shooter\Scripts\Bullet.cpp">
+      <Filter>Source\Shooter\Scripts</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\Shooter\Scripts\Bullet.h">
+      <Filter>Source\Shooter\Scripts</Filter>
+    </ClInclude>
     <ClCompile Include="..\..\Source\Shooter\Scripts\PlayerActor.cpp">
       <Filter>Source\Shooter\Scripts</Filter>
     </ClCompile>

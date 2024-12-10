@@ -11,11 +11,14 @@ class SHOOTER_API APlayerCharacter : public ACharacter
 {
 	GENERATED_BODY()
 
-		const float moveSpeed = 1;
+	const float moveSpeed = 1;
+	const float jumpHeight = 1000;
+	const float shootForce = 10000;
 
 public:
 	// Sets default values for this character's properties
 	APlayerCharacter();
+
 
 protected:
 	// Called when the game starts or when spawned

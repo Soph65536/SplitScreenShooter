@@ -2,6 +2,7 @@
 
 
 #include "Shooter/Scripts/PlayerCharacter.h"
+#include "Shooter/Scripts/Bullet.h"
 
 // Sets default values
 APlayerCharacter::APlayerCharacter()
@@ -38,8 +39,9 @@ void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 	PlayerInputComponent->BindAxis("P0LookVertical", this, &APlayerCharacter::LookVertical);
 
 	PlayerInputComponent->BindAction("P0Jump", IE_Pressed, this, &APlayerCharacter::Jump);
+	PlayerInputComponent->BindAction("P0Jump", IE_Released, this, &ACharacter::StopJumping);
 	PlayerInputComponent->BindAction("P0Shoot", IE_Pressed, this, &APlayerCharacter::Shoot);
-
+	
 }
 
 
@@ -66,9 +68,11 @@ void APlayerCharacter::LookVertical(float value) {
 }
 
 void APlayerCharacter::Jump() {
-
+	JumpMaxHoldTime = jumpHeight;
+	ACharacter::Jump();
 }
 
 void APlayerCharacter::Shoot() {
-
+	ABullet* NewBullet = GetWorld()->SpawnActor<ABullet>(GetActorLocation(), GetControlRotation());
+	//NewBullet->AddImpulse(GetActorForwardVector(), shootForce);
 }
