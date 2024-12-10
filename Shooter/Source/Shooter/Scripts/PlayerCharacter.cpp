@@ -3,6 +3,8 @@
 
 #include "Shooter/Scripts/PlayerCharacter.h"
 #include "Shooter/Scripts/Bullet.h"
+#include "GameFramework/SpringArmComponent.h"
+#include "Camera/CameraComponent.h"
 
 // Sets default values
 APlayerCharacter::APlayerCharacter()
@@ -12,13 +14,18 @@ APlayerCharacter::APlayerCharacter()
 
 	AutoPossessPlayer = EAutoReceiveInput::Player0;
 
+	SpringArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("Spring Arm"));
+	SpringArm->SetupAttachment(RootComponent);
+	CameraComp = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
+	CameraComp->SetupAttachment(SpringArm);
+	
 }
 
 // Called when the game starts or when spawned
 void APlayerCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
 }
 
 // Called every frame
@@ -40,6 +47,9 @@ void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 
 	PlayerInputComponent->BindAction("P0Jump", IE_Pressed, this, &APlayerCharacter::Jump);
 	PlayerInputComponent->BindAction("P0Jump", IE_Released, this, &ACharacter::StopJumping);
+
+	PlayerInputComponent->BindAction("P0Aim", IE_Pressed, this, &APlayerCharacter::StartAiming);
+	PlayerInputComponent->BindAction("P0Aim", IE_Released, this, &APlayerCharacter::StopAiming);
 	PlayerInputComponent->BindAction("P0Shoot", IE_Pressed, this, &APlayerCharacter::Shoot);
 	
 }
@@ -72,11 +82,25 @@ void APlayerCharacter::Jump() {
 	ACharacter::Jump();
 }
 
+void APlayerCharacter::StartAiming() {
+	//CameraComp->SetRelativeLocation(CameraAimLocation);
+	bFindCameraComponentWhenViewTarget = false;
+}
+
+void APlayerCharacter::StopAiming() {
+	//CameraComp->SetRelativeLocation(CameraBaseLocation);
+	bFindCameraComponentWhenViewTarget = true;
+}
+
 void APlayerCharacter::Shoot() {
+	FVector BulletSpawnLocation = GetActorLocation() + FVector(50, 0, 15);
+	FRotator BulletSpawnRotation = GetControlRotation();
+	FVector BulletForwardVector = FRotationMatrix(BulletSpawnRotation).GetUnitAxis(EAxis::X);
+
 	FActorSpawnParameters spawnParams;
 	spawnParams.Owner = this;
 	spawnParams.Instigator = this;
 
-	ABullet* NewBullet = GetWorld()->SpawnActor<ABullet>(BulletBP, GetActorLocation(), GetControlRotation(), spawnParams);//!!!!!!!!change actor location to the camera/spring arm locations
-	Cast<UStaticMeshComponent>(NewBullet->GetRootComponent())->AddForce(GetActorForwardVector() * shootForce); //get root component of bullet, cast it to mesh then add force to it
+	ABullet* NewBullet = GetWorld()->SpawnActor<ABullet>(BulletBP, BulletSpawnLocation, BulletSpawnRotation, spawnParams);
+	Cast<UStaticMeshComponent>(NewBullet->GetRootComponent())->AddForce(BulletForwardVector * shootForce); //get root component of bullet, cast it to mesh then add force to it
 }

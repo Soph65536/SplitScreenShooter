@@ -8540,19 +8540,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\User1\\.nuget\\packages\\": {}
+    "C:\\Users\\2earls68\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\User1\\Documents\\~ Unreal Projects ~\\SplitScreenShooter\\Shooter\\Intermediate\\Build\\BuildRulesProjects\\ShooterModuleRules\\ShooterModuleRules.csproj",
+      "projectUniqueName": "C:\\Users\\2earls68\\Downloads\\SplitScreenShooter\\Shooter\\Intermediate\\Build\\BuildRulesProjects\\ShooterModuleRules\\ShooterModuleRules.csproj",
       "projectName": "ShooterModuleRules",
-      "projectPath": "D:\\User1\\Documents\\~ Unreal Projects ~\\SplitScreenShooter\\Shooter\\Intermediate\\Build\\BuildRulesProjects\\ShooterModuleRules\\ShooterModuleRules.csproj",
-      "packagesPath": "C:\\Users\\User1\\.nuget\\packages\\",
-      "outputPath": "D:\\User1\\Documents\\~ Unreal Projects ~\\SplitScreenShooter\\Shooter\\Intermediate\\Build\\BuildRulesProjects\\ShooterModuleRules\\obj\\",
+      "projectPath": "C:\\Users\\2earls68\\Downloads\\SplitScreenShooter\\Shooter\\Intermediate\\Build\\BuildRulesProjects\\ShooterModuleRules\\ShooterModuleRules.csproj",
+      "packagesPath": "C:\\Users\\2earls68\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\2earls68\\Downloads\\SplitScreenShooter\\Shooter\\Intermediate\\Build\\BuildRulesProjects\\ShooterModuleRules\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\User1\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\2earls68\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -8566,17 +8566,17 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "D:\\Program Files\\Epic Games\\UE_5.4\\Engine\\Intermediate\\Build\\BuildRulesProjects\\UE5ProgramRules\\UE5ProgramRules.csproj": {
-              "projectPath": "D:\\Program Files\\Epic Games\\UE_5.4\\Engine\\Intermediate\\Build\\BuildRulesProjects\\UE5ProgramRules\\UE5ProgramRules.csproj"
+            "C:\\Program Files\\Epic Games\\UE_5.4\\Engine\\Intermediate\\Build\\BuildRulesProjects\\UE5ProgramRules\\UE5ProgramRules.csproj": {
+              "projectPath": "C:\\Program Files\\Epic Games\\UE_5.4\\Engine\\Intermediate\\Build\\BuildRulesProjects\\UE5ProgramRules\\UE5ProgramRules.csproj"
             },
-            "D:\\Program Files\\Epic Games\\UE_5.4\\Engine\\Intermediate\\Build\\BuildRulesProjects\\UE5Rules\\UE5Rules.csproj": {
-              "projectPath": "D:\\Program Files\\Epic Games\\UE_5.4\\Engine\\Intermediate\\Build\\BuildRulesProjects\\UE5Rules\\UE5Rules.csproj"
+            "C:\\Program Files\\Epic Games\\UE_5.4\\Engine\\Intermediate\\Build\\BuildRulesProjects\\UE5Rules\\UE5Rules.csproj": {
+              "projectPath": "C:\\Program Files\\Epic Games\\UE_5.4\\Engine\\Intermediate\\Build\\BuildRulesProjects\\UE5Rules\\UE5Rules.csproj"
             },
-            "D:\\Program Files\\Epic Games\\UE_5.4\\Engine\\Source\\Programs\\Shared\\EpicGames.Build\\EpicGames.Build.csproj": {
-              "projectPath": "D:\\Program Files\\Epic Games\\UE_5.4\\Engine\\Source\\Programs\\Shared\\EpicGames.Build\\EpicGames.Build.csproj"
+            "C:\\Program Files\\Epic Games\\UE_5.4\\Engine\\Source\\Programs\\Shared\\EpicGames.Build\\EpicGames.Build.csproj": {
+              "projectPath": "C:\\Program Files\\Epic Games\\UE_5.4\\Engine\\Source\\Programs\\Shared\\EpicGames.Build\\EpicGames.Build.csproj"
             },
-            "D:\\Program Files\\Epic Games\\UE_5.4\\Engine\\Source\\Programs\\UnrealBuildTool\\UnrealBuildTool.csproj": {
-              "projectPath": "D:\\Program Files\\Epic Games\\UE_5.4\\Engine\\Source\\Programs\\UnrealBuildTool\\UnrealBuildTool.csproj"
+            "C:\\Program Files\\Epic Games\\UE_5.4\\Engine\\Source\\Programs\\UnrealBuildTool\\UnrealBuildTool.csproj": {
+              "projectPath": "C:\\Program Files\\Epic Games\\UE_5.4\\Engine\\Source\\Programs\\UnrealBuildTool\\UnrealBuildTool.csproj"
             }
           }
         }
@@ -8585,6 +8585,11 @@
         "warnAsError": [
           "NU1605"
         ]
+      },
+      "restoreAuditProperties": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "direct"
       }
     },
     "frameworks": {
@@ -8601,12 +8606,26 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
+        "downloadDependencies": [
+          {
+            "name": "Microsoft.AspNetCore.App.Ref",
+            "version": "[6.0.31, 6.0.31]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Ref",
+            "version": "[6.0.31, 6.0.31]"
+          },
+          {
+            "name": "Microsoft.WindowsDesktop.App.Ref",
+            "version": "[6.0.31, 6.0.31]"
+          }
+        ],
         "frameworkReferences": {
           "Microsoft.NETCore.App": {
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.302\\RuntimeIdentifierGraph.json"
       }
     }
   }

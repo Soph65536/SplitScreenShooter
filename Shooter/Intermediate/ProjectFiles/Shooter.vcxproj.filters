@@ -61,6 +61,5 @@
     <ClInclude Include="..\..\Source\Shooter\Scripts\TheGameModeBase.h">
       <Filter>Source\Shooter\Scripts</Filter>
     </ClInclude>
-    <None Include="cpp.hint" />
   </ItemGroup>
 </Project>
