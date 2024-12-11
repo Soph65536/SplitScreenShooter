@@ -12,7 +12,11 @@ APlayerCharacter::APlayerCharacter()
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
+	//autoposses the right player
 	AutoPossessPlayer = EAutoReceiveInput::Player0;
+
+	//set health
+	health = maxHealth;
 
 	//make spring arm
 	SpringArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("Spring Arm"));
@@ -44,6 +48,13 @@ void APlayerCharacter::Tick(float DeltaTime)
 	Super::Tick(DeltaTime);
 
 }
+
+
+void APlayerCharacter::PlayerTakeDamage() {
+	health--; //remove health
+	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Orange, FString::SanitizeFloat(health));
+}
+
 
 // Called to bind functionality to input
 void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -103,7 +114,7 @@ void APlayerCharacter::StopAiming() {
 }
 
 void APlayerCharacter::Shoot() {
-	FVector BulletSpawnLocation = GetActorLocation() + FVector(50, 0, centerHeightOffset);
+	FVector BulletSpawnLocation = GetActorLocation() + FVector(0, 0, centerHeightOffset);
 	FRotator BulletSpawnRotation = GetControlRotation();
 	FVector BulletForwardVector = FRotationMatrix(BulletSpawnRotation).GetUnitAxis(EAxis::X);
 
@@ -111,6 +122,13 @@ void APlayerCharacter::Shoot() {
 	spawnParams.Owner = this;
 	spawnParams.Instigator = this;
 
-	ABullet* NewBullet = GetWorld()->SpawnActor<ABullet>(BulletBP, BulletSpawnLocation, BulletSpawnRotation, spawnParams);
-	Cast<UStaticMeshComponent>(NewBullet->GetRootComponent())->AddForce(BulletForwardVector * shootForce); //get root component of bullet, cast it to mesh then add force to it
+	ABullet* NewBullet = GetWorld()->SpawnActor<ABullet>(BulletBP, FVector(0, 0, -100), BulletSpawnRotation, spawnParams); //spawn bullet in floor
+	NewBullet->Player = this; //set the player var of the new bullet to this object
+	NewBullet->SetActorLocation(BulletSpawnLocation); //set bullet's location after making sure the player var is set
+
+	//if bullet exists
+	if (NewBullet != nullptr) {
+	//get root component of bullet, cast it to mesh then add force to it
+	Cast<UStaticMeshComponent>(NewBullet->GetRootComponent())->AddForce(BulletForwardVector * shootForce); 
+	}
 }
