@@ -14,11 +14,21 @@ APlayerCharacter::APlayerCharacter()
 
 	AutoPossessPlayer = EAutoReceiveInput::Player0;
 
+	//make spring arm
 	SpringArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("Spring Arm"));
 	SpringArm->SetupAttachment(RootComponent);
+
+	//set spring arm properties
+	SpringArm->SetRelativeLocation(FVector(0, 0, centerHeightOffset));
+	SpringArm->TargetArmLength = 350;
+	SpringArm->bUsePawnControlRotation = true;
+
+	//make camera as spring arm child
 	CameraComp = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
 	CameraComp->SetupAttachment(SpringArm);
 	
+	//set camera properties
+	CameraComp->bUsePawnControlRotation = false;
 }
 
 // Called when the game starts or when spawned
@@ -93,7 +103,7 @@ void APlayerCharacter::StopAiming() {
 }
 
 void APlayerCharacter::Shoot() {
-	FVector BulletSpawnLocation = GetActorLocation() + FVector(50, 0, 15);
+	FVector BulletSpawnLocation = GetActorLocation() + FVector(50, 0, centerHeightOffset);
 	FRotator BulletSpawnRotation = GetControlRotation();
 	FVector BulletForwardVector = FRotationMatrix(BulletSpawnRotation).GetUnitAxis(EAxis::X);
 

@@ -15,9 +15,11 @@ class SHOOTER_API APlayerCharacter : public ACharacter
 {
 	GENERATED_BODY()
 
+	const float centerHeightOffset = 45;
+
 	const float moveSpeed = 1;
 	const float jumpHeight = 1000;
-	const float shootForce = 10000;
+	const float shootForce = 50000;
 
 	const FVector CameraBaseLocation = FVector(0, 0, 0);
 	const FVector CameraAimLocation = FVector(250, 0, 0);
