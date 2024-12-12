@@ -19,7 +19,7 @@ class SHOOTER_API APlayerCharacter : public ACharacter
 
 	const float maxHealth = 100;
 	const float moveSpeed = 1;
-	const float jumpHeight = 1000;
+	const float jumpHeight = 1;
 	const float shootForce = 40000;
 
 	const FVector CameraBaseLocation = FVector(0, 0, 0);
@@ -46,6 +46,17 @@ public:
 	//player damage function
 	void PlayerTakeDamage();
 
+	//animation assets
+	UPROPERTY(EditAnywhere)
+		UAnimationAsset* DeathAnim;
+
+	USkeletalMeshComponent* PlayerSMC;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "CustomAnim")
+		float horizontal;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "CustomAnim")
+		float vertical;
 
 protected:
 	// Called when the game starts or when spawned

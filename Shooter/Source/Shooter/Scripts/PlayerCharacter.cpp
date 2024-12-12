@@ -19,6 +19,9 @@ APlayerCharacter::APlayerCharacter()
 	//set health
 	health = maxHealth;
 
+	//set skeletal mesh component
+	PlayerSMC = FindComponentByClass<USkeletalMeshComponent>();
+
 	//make spring arm
 	SpringArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("Spring Arm"));
 	SpringArm->SetupAttachment(RootComponent);
@@ -79,6 +82,8 @@ void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 
 
 void APlayerCharacter::MoveHorizontal(float value) {
+	horizontal = value;
+
 	FRotator YawRotation(0, GetControlRotation().Yaw, 0); //get yaw
 	FVector RightVector = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y); //get leftright vector from yaw
 
@@ -86,6 +91,8 @@ void APlayerCharacter::MoveHorizontal(float value) {
 }
 
 void APlayerCharacter::MoveVertical(float value) {
+	vertical = value;
+
 	FRotator YawRotation(0, GetControlRotation().Yaw, 0); // get yaw
 	FVector ForwardVector = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::X); //get forwardback vector from yaw
 
@@ -138,5 +145,9 @@ void APlayerCharacter::Shoot() {
 
 void APlayerCharacter::EndGame() {
 	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Orange, TEXT("Player 1 win!"));
+
+	//if skeletal mesh component exists, animate death
+	if (PlayerSMC) { PlayerSMC->PlayAnimation(DeathAnim, false); }
+
 	Destroy();
 }
