@@ -2,6 +2,7 @@
 
 
 #include "Shooter/Scripts/PlayerCharacter.h"
+
 #include "Shooter/Scripts/Bullet.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
@@ -52,6 +53,7 @@ void APlayerCharacter::Tick(float DeltaTime)
 
 void APlayerCharacter::PlayerTakeDamage() {
 	health--; //remove health
+	if (health <= 0) { EndGame(); } //endgame if player has died
 	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Orange, FString::SanitizeFloat(health));
 }
 
@@ -131,4 +133,10 @@ void APlayerCharacter::Shoot() {
 	//get root component of bullet, cast it to mesh then add force to it
 	Cast<UStaticMeshComponent>(NewBullet->GetRootComponent())->AddForce(BulletForwardVector * shootForce); 
 	}
+}
+
+
+void APlayerCharacter::EndGame() {
+	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Orange, TEXT("Player 1 win!"));
+	Destroy();
 }

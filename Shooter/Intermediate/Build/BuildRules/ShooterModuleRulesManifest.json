@@ -1,8 +1,8 @@
 {
 	"SourceFiles": [
-		"D:\\User1\\Documents\\~ Unreal Projects ~\\SplitScreenShooter\\Shooter\\Source\\Shooter\\Shooter.Build.cs",
-		"D:\\User1\\Documents\\~ Unreal Projects ~\\SplitScreenShooter\\Shooter\\Source\\Shooter.Target.cs",
-		"D:\\User1\\Documents\\~ Unreal Projects ~\\SplitScreenShooter\\Shooter\\Source\\ShooterEditor.Target.cs"
+		"C:\\Users\\sophe\\Documents\\Unreal Projects\\SplitScreenShooter\\Shooter\\Source\\Shooter\\Shooter.Build.cs",
+		"C:\\Users\\sophe\\Documents\\Unreal Projects\\SplitScreenShooter\\Shooter\\Source\\Shooter.Target.cs",
+		"C:\\Users\\sophe\\Documents\\Unreal Projects\\SplitScreenShooter\\Shooter\\Source\\ShooterEditor.Target.cs"
 	],
 	"EngineVersion": "5.4.4"
 }

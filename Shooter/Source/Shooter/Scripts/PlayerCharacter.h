@@ -46,6 +46,7 @@ public:
 	//player damage function
 	void PlayerTakeDamage();
 
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -62,6 +63,9 @@ protected:
 	void StartAiming();
 	void StopAiming();
 	void Shoot();
+
+	//game ending
+	void EndGame();
 
 	//player health
 	float health;
