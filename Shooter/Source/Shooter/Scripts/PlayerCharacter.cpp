@@ -21,6 +21,7 @@ APlayerCharacter::APlayerCharacter()
 
 	//set skeletal mesh component
 	PlayerSMC = FindComponentByClass<USkeletalMeshComponent>();
+	ownernoseeBPModify = false; //set owner no see to false
 
 	//make spring arm
 	SpringArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("Spring Arm"));
@@ -113,12 +114,12 @@ void APlayerCharacter::Jump() {
 }
 
 void APlayerCharacter::StartAiming() {
-	//CameraComp->SetRelativeLocation(CameraAimLocation);
-	bFindCameraComponentWhenViewTarget = false;
+	ownernoseeBPModify = true; //prevent player seeing inside smc
+	bFindCameraComponentWhenViewTarget = false; //change camera comp to built in first person
 }
 
 void APlayerCharacter::StopAiming() {
-	//CameraComp->SetRelativeLocation(CameraBaseLocation);
+	ownernoseeBPModify = false;
 	bFindCameraComponentWhenViewTarget = true;
 }
 

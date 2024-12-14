@@ -19,7 +19,7 @@ class SHOOTER_API APlayerCharacter : public ACharacter
 
 	const float maxHealth = 100;
 	const float moveSpeed = 1;
-	const float jumpHeight = 1;
+	const float jumpHeight = 0.5;
 	const float shootForce = 40000;
 
 	const FVector CameraBaseLocation = FVector(0, 0, 0);
@@ -52,11 +52,14 @@ public:
 
 	USkeletalMeshComponent* PlayerSMC;
 
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "CustomAnim")
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "BPVariables")
 		float horizontal;
 
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "CustomAnim")
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "BPVariables")
 		float vertical;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "BPVariables")
+		bool ownernoseeBPModify;
 
 protected:
 	// Called when the game starts or when spawned
