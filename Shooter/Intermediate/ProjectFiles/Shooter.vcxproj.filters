@@ -49,6 +49,12 @@
     <ClInclude Include="..\..\Source\Shooter\Scripts\Bullet.h">
       <Filter>Source\Shooter\Scripts</Filter>
     </ClInclude>
+    <ClCompile Include="..\..\Source\Shooter\Scripts\Player1Character.cpp">
+      <Filter>Source\Shooter\Scripts</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\Shooter\Scripts\Player1Character.h">
+      <Filter>Source\Shooter\Scripts</Filter>
+    </ClInclude>
     <ClCompile Include="..\..\Source\Shooter\Scripts\PlayerAnimInstance.cpp">
       <Filter>Source\Shooter\Scripts</Filter>
     </ClCompile>

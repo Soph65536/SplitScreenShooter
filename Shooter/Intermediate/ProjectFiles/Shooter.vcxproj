@@ -267,6 +267,10 @@
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <ClInclude Include="..\..\Source\Shooter\Scripts\Bullet.h"/>
+    <ClCompile Include="..\..\Source\Shooter\Scripts\Player1Character.cpp">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\Shooter\Scripts\Player1Character.h"/>
     <ClCompile Include="..\..\Source\Shooter\Scripts\PlayerAnimInstance.cpp">
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>

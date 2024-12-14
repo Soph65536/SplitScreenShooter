@@ -43,28 +43,6 @@ public:
 	class UCameraComponent* CameraComp;
 
 
-	//player damage function
-	void PlayerTakeDamage();
-
-	//animation assets
-	UPROPERTY(EditAnywhere)
-		UAnimationAsset* DeathAnim;
-
-	USkeletalMeshComponent* PlayerSMC;
-
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "BPVariables")
-		float horizontal;
-
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "BPVariables")
-		float vertical;
-
-	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "BPVariables")
-		bool ownernoseeBPModify;
-
-protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
-
 	//input functions
 	void MoveHorizontal(float value);
 	void MoveVertical(float value);
@@ -77,6 +55,35 @@ protected:
 	void StartAiming();
 	void StopAiming();
 	void Shoot();
+
+
+	//player damage function
+	void PlayerTakeDamage();
+
+
+	//animation assets
+	UPROPERTY(EditAnywhere)
+		UAnimationAsset* DeathAnim;
+
+	USkeletalMeshComponent* PlayerSMC;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Variables C++")
+		float horizontal;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Variables C++")
+		float vertical;
+
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Variables C++")
+		bool ownernoseeBPModify;
+
+
+	//HUD assets
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "UI C++")
+		FString HealthTextDisplay;
+
+protected:
+	// Called when the game starts or when spawned
+	virtual void BeginPlay() override;
 
 	//game ending
 	void EndGame();

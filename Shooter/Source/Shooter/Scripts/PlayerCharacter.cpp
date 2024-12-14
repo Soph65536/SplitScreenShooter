@@ -3,6 +3,7 @@
 
 #include "Shooter/Scripts/PlayerCharacter.h"
 
+#include "Blueprint/UserWidget.h"
 #include "Shooter/Scripts/Bullet.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
@@ -44,7 +45,6 @@ APlayerCharacter::APlayerCharacter()
 void APlayerCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-
 }
 
 // Called every frame
@@ -57,8 +57,9 @@ void APlayerCharacter::Tick(float DeltaTime)
 
 void APlayerCharacter::PlayerTakeDamage() {
 	health--; //remove health
+	HealthTextDisplay = TEXT("Health - ") + FString::SanitizeFloat(health); //update text display
+
 	if (health <= 0) { EndGame(); } //endgame if player has died
-	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Orange, FString::SanitizeFloat(health));
 }
 
 
@@ -150,5 +151,5 @@ void APlayerCharacter::EndGame() {
 	//if skeletal mesh component exists, animate death
 	if (PlayerSMC) { PlayerSMC->PlayAnimation(DeathAnim, false); }
 
-	Destroy();
+	SetLifeSpan(1); //destroy after 2 seconds
 }
