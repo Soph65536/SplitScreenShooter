@@ -45,6 +45,11 @@ APlayerCharacter::APlayerCharacter()
 void APlayerCharacter::BeginPlay()
 {
 	Super::BeginPlay();
+
+	if (HUDOverlay) {
+		HUDOverlay->AddToViewport();
+		HUDOverlay->SetVisibility(ESlateVisibility::Visible);
+	}
 }
 
 // Called every frame
@@ -57,7 +62,6 @@ void APlayerCharacter::Tick(float DeltaTime)
 
 void APlayerCharacter::PlayerTakeDamage() {
 	health--; //remove health
-	HealthTextDisplay = TEXT("Health - ") + FString::SanitizeFloat(health); //update text display
 
 	if (health <= 0) { EndGame(); } //endgame if player has died
 }

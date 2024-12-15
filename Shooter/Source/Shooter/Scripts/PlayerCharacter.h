@@ -2,6 +2,7 @@
 
 #pragma once
 
+#include "Blueprint/UserWidget.h"
 #include "Shooter/Scripts/Bullet.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
@@ -78,8 +79,12 @@ public:
 
 
 	//HUD assets
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "UI C++")
+		UUserWidget* HUDOverlay;
+
+	//player health
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "UI C++")
-		FString HealthTextDisplay;
+		float health;
 
 protected:
 	// Called when the game starts or when spawned
@@ -87,9 +92,6 @@ protected:
 
 	//game ending
 	void EndGame();
-
-	//player health
-	float health;
 
 public:	
 	// Called every frame

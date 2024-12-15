@@ -22,6 +22,8 @@ public:
 	// Sets default values for this character's properties
 	APlayer1Character();
 
+protected:
+
 public:
 
 	// Called to bind functionality to input
