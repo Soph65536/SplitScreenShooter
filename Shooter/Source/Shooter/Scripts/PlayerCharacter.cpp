@@ -46,9 +46,20 @@ void APlayerCharacter::BeginPlay()
 {
 	Super::BeginPlay();
 
+	//add hud
 	if (HUDOverlay) {
 		HUDOverlay->AddToViewport();
 		HUDOverlay->SetVisibility(ESlateVisibility::Visible);
+	}
+
+	//add controls ui for a set time
+	if (ControlsOverlay) {
+		ControlsOverlay->AddToViewport();
+		ControlsOverlay->SetVisibility(ESlateVisibility::Visible);
+
+		//create a timer that calls closecontrols after
+		FTimerHandle UnusedHandle;
+		GetWorldTimerManager().SetTimer(UnusedHandle, this, &APlayerCharacter::CloseControls, UIControlsVisibleTime, false);
 	}
 }
 
@@ -148,6 +159,10 @@ void APlayerCharacter::Shoot() {
 	}
 }
 
+
+void APlayerCharacter::CloseControls() {
+	ControlsOverlay->SetVisibility(ESlateVisibility::Hidden);
+}
 
 void APlayerCharacter::EndGame() {
 	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Orange, TEXT("Player 1 win!"));

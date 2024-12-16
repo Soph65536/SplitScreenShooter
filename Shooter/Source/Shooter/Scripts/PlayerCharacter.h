@@ -16,10 +16,12 @@ class SHOOTER_API APlayerCharacter : public ACharacter
 {
 	GENERATED_BODY()
 
+	const float UIControlsVisibleTime = 20;
+
 	const float centerHeightOffset = 45;
 
 	const float maxHealth = 100;
-	const float moveSpeed = 1;
+	const float moveSpeed = 2;
 	const float jumpHeight = 0.5;
 	const float shootForce = 40000;
 
@@ -78,7 +80,13 @@ public:
 		bool ownernoseeBPModify;
 
 
-	//HUD assets
+	//UI assets
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "UI C++")
+		UUserWidget* ControlsOverlay;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "UI C++")
+		UUserWidget* LoseScreenOverlay; //when health 0 (lose) the other player wins
+
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "UI C++")
 		UUserWidget* HUDOverlay;
 
@@ -89,6 +97,9 @@ public:
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
+
+	//close controls UI
+	void CloseControls();
 
 	//game ending
 	void EndGame();
