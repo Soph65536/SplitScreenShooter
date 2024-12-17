@@ -141,8 +141,8 @@ void APlayerCharacter::StopAiming() {
 
 void APlayerCharacter::Shoot() {
 	FVector BulletSpawnLocation = GetActorLocation() + FVector(0, 0, centerHeightOffset);
-	FRotator BulletSpawnRotation = GetControlRotation();
-	FVector BulletForwardVector = FRotationMatrix(BulletSpawnRotation).GetUnitAxis(EAxis::X);
+	FRotator BulletSpawnRotation = GetControlRotation() + FRotator(0, -90, 0); //add rotation so model faces right way
+	FVector BulletForwardVector = FRotationMatrix(GetControlRotation()).GetUnitAxis(EAxis::X);
 
 	FActorSpawnParameters spawnParams;
 	spawnParams.Owner = this;
@@ -153,9 +153,9 @@ void APlayerCharacter::Shoot() {
 	NewBullet->SetActorLocation(BulletSpawnLocation); //set bullet's location after making sure the player var is set
 
 	//if bullet exists
-	if (NewBullet != nullptr) {
-	//get root component of bullet, cast it to mesh then add force to it
-	Cast<UStaticMeshComponent>(NewBullet->GetRootComponent())->AddForce(BulletForwardVector * shootForce); 
+	if (NewBullet) {
+		//get root component of bullet, cast it to mesh then add force to it
+		Cast<UStaticMeshComponent>(NewBullet->GetRootComponent())->AddForce(BulletForwardVector * shootForce); 
 	}
 }
 
@@ -165,10 +165,14 @@ void APlayerCharacter::CloseControls() {
 }
 
 void APlayerCharacter::EndGame() {
-	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Orange, TEXT("Player 1 win!"));
+	//show lose screen
+	if (LoseScreenOverlay) {
+		LoseScreenOverlay->AddToViewport();
+		LoseScreenOverlay->SetVisibility(ESlateVisibility::Visible);
+	}
 
 	//if skeletal mesh component exists, animate death
 	if (PlayerSMC) { PlayerSMC->PlayAnimation(DeathAnim, false); }
 
-	SetLifeSpan(1); //destroy after 2 seconds
+	SetLifeSpan(2); //destroy after 2 seconds
 }

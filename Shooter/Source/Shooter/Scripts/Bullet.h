@@ -15,7 +15,7 @@ public:
 	// Sets default values for this actor's properties
 	ABullet();
 
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		class UStaticMeshComponent* BulletMesh;
 
 	AActor* Player;
