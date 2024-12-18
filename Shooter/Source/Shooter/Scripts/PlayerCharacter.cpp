@@ -7,6 +7,7 @@
 #include "Shooter/Scripts/Bullet.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
+#include "GameFramework/CharacterMovementComponent.h"
 
 // Sets default values
 APlayerCharacter::APlayerCharacter()
@@ -20,6 +21,9 @@ APlayerCharacter::APlayerCharacter()
 	//set health
 	health = maxHealth;
 
+	//set movespeed
+	GetCharacterMovement()->MaxWalkSpeed = moveSpeed;
+
 	//set skeletal mesh component
 	PlayerSMC = FindComponentByClass<USkeletalMeshComponent>();
 	ownernoseeBPModify = false; //set owner no see to false
@@ -31,6 +35,7 @@ APlayerCharacter::APlayerCharacter()
 	//set spring arm properties
 	SpringArm->SetRelativeLocation(FVector(0, 0, centerHeightOffset));
 	SpringArm->TargetArmLength = 350;
+	SpringArm->TargetOffset = FVector(-30, 0, 0);
 	SpringArm->bUsePawnControlRotation = true;
 
 	//make camera as spring arm child

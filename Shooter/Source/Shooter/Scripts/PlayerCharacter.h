@@ -21,7 +21,7 @@ class SHOOTER_API APlayerCharacter : public ACharacter
 	const float centerHeightOffset = 45;
 
 	const float maxHealth = 100;
-	const float moveSpeed = 2;
+	const float moveSpeed = 1000;
 	const float jumpHeight = 0.5;
 	const float shootForce = 40000;
 
