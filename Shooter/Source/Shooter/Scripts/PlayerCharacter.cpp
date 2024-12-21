@@ -8,6 +8,7 @@
 #include "GameFramework/SpringArmComponent.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "Kismet/GameplayStatics.h"
 
 // Sets default values
 APlayerCharacter::APlayerCharacter()
@@ -18,7 +19,9 @@ APlayerCharacter::APlayerCharacter()
 	//autoposses the right player
 	AutoPossessPlayer = EAutoReceiveInput::Player0;
 
-	//set health
+	//set variable
+	reloading = false;
+	ammo = maxAmmo;
 	health = maxHealth;
 
 	//set movespeed
@@ -57,12 +60,18 @@ void APlayerCharacter::BeginPlay()
 		HUDOverlay->SetVisibility(ESlateVisibility::Visible);
 	}
 
+	//add aiming overlay for when player aims
+	if (AimingOverlay) {
+		AimingOverlay->AddToViewport();
+		AimingOverlay->SetVisibility(ESlateVisibility::Hidden);
+	}
+
 	//add controls ui for a set time
 	if (ControlsOverlay) {
 		ControlsOverlay->AddToViewport();
 		ControlsOverlay->SetVisibility(ESlateVisibility::Visible);
 
-		//create a timer that calls closecontrols after
+		//create a timer that calls closecontrols after certain time
 		FTimerHandle UnusedHandle;
 		GetWorldTimerManager().SetTimer(UnusedHandle, this, &APlayerCharacter::CloseControls, UIControlsVisibleTime, false);
 	}
@@ -77,9 +86,15 @@ void APlayerCharacter::Tick(float DeltaTime)
 
 
 void APlayerCharacter::PlayerTakeDamage() {
-	health--; //remove health
+	health -= damageAmount; //remove health
+	if (DamageSound) { UGameplayStatics::PlaySoundAtLocation(this, DamageSound, GetActorLocation()); } //play sound
 
 	if (health <= 0) { EndGame(); } //endgame if player has died
+}
+
+void APlayerCharacter::PlayerHeal() {
+	if (health < maxHealth) { health += healAmount; } //add health if below max
+	if (HealSound) { UGameplayStatics::PlaySoundAtLocation(this, HealSound, GetActorLocation()); } //play sound
 }
 
 
@@ -132,38 +147,69 @@ void APlayerCharacter::LookVertical(float value) {
 void APlayerCharacter::Jump() {
 	JumpMaxHoldTime = jumpHeight;
 	ACharacter::Jump();
+
+	if (JumpSound) { UGameplayStatics::PlaySoundAtLocation(this, JumpSound, GetActorLocation()); } //play sound
 }
 
 void APlayerCharacter::StartAiming() {
 	ownernoseeBPModify = true; //prevent player seeing inside smc
 	bFindCameraComponentWhenViewTarget = false; //change camera comp to built in first person
+
+	if (AimingOverlay) { AimingOverlay->SetVisibility(ESlateVisibility::Visible); } // ui overlay
+
+	if (StartAimSound) { UGameplayStatics::PlaySoundAtLocation(this, StartAimSound, GetActorLocation()); } //play sound
 }
 
 void APlayerCharacter::StopAiming() {
 	ownernoseeBPModify = false;
 	bFindCameraComponentWhenViewTarget = true;
+
+	if (AimingOverlay) { AimingOverlay->SetVisibility(ESlateVisibility::Hidden); } // ui overlay
+
+	if (StopAimSound) { UGameplayStatics::PlaySoundAtLocation(this, StopAimSound, GetActorLocation()); } //play sound
 }
 
 void APlayerCharacter::Shoot() {
-	FVector BulletSpawnLocation = GetActorLocation() + FVector(0, 0, centerHeightOffset);
-	FRotator BulletSpawnRotation = GetControlRotation() + FRotator(0, -90, 0); //add rotation so model faces right way
-	FVector BulletForwardVector = FRotationMatrix(GetControlRotation()).GetUnitAxis(EAxis::X);
+	if (!reloading) {
+		FVector BulletSpawnLocation = GetActorLocation() + FVector(0, 0, centerHeightOffset);
+		FRotator BulletSpawnRotation = GetControlRotation() + FRotator(0, -90, 0); //add rotation so model faces right way
+		FVector BulletForwardVector = FRotationMatrix(GetControlRotation()).GetUnitAxis(EAxis::X);
 
-	FActorSpawnParameters spawnParams;
-	spawnParams.Owner = this;
-	spawnParams.Instigator = this;
+		FActorSpawnParameters spawnParams;
+		spawnParams.Owner = this;
+		spawnParams.Instigator = this;
 
-	ABullet* NewBullet = GetWorld()->SpawnActor<ABullet>(BulletBP, FVector(0, 0, -100), BulletSpawnRotation, spawnParams); //spawn bullet in floor
-	NewBullet->Player = this; //set the player var of the new bullet to this object
-	NewBullet->SetActorLocation(BulletSpawnLocation); //set bullet's location after making sure the player var is set
+		ABullet* NewBullet = GetWorld()->SpawnActor<ABullet>(BulletBP, FVector(0, 0, -100), BulletSpawnRotation, spawnParams); //spawn bullet in floor
+		NewBullet->Player = this; //set the player var of the new bullet to this object
+		NewBullet->SetActorLocation(BulletSpawnLocation); //set bullet's location after making sure the player var is set
 
-	//if bullet exists
-	if (NewBullet) {
-		//get root component of bullet, cast it to mesh then add force to it
-		Cast<UStaticMeshComponent>(NewBullet->GetRootComponent())->AddForce(BulletForwardVector * shootForce); 
+		//if bullet exists
+		if (NewBullet) {
+			//get root component of bullet, cast it to mesh then add force to it
+			Cast<UStaticMeshComponent>(NewBullet->GetRootComponent())->AddForce(BulletForwardVector * shootForce);
+
+			if (ShootSound) { UGameplayStatics::PlaySoundAtLocation(this, ShootSound, GetActorLocation()); } //play sound
+
+			ammo--;
+		}
+
+		//check if need to reload
+		if (ammo <= 0) {
+			if (ReloadSound) { UGameplayStatics::PlaySoundAtLocation(this, ReloadSound, GetActorLocation()); } //play sound
+			
+			reloading = true;
+			//create a timer that calls reload after 2secs
+			FTimerHandle UnusedHandle;
+			GetWorldTimerManager().SetTimer(UnusedHandle, this, &APlayerCharacter::ReloadAmmo, 2, false);
+		}
 	}
 }
 
+
+void APlayerCharacter::ReloadAmmo() {
+	reloading = false;
+	ammo = maxAmmo;
+}
 
 void APlayerCharacter::CloseControls() {
 	ControlsOverlay->SetVisibility(ESlateVisibility::Hidden);
@@ -175,6 +221,9 @@ void APlayerCharacter::EndGame() {
 		LoseScreenOverlay->AddToViewport();
 		LoseScreenOverlay->SetVisibility(ESlateVisibility::Visible);
 	}
+
+	//play win sound
+	if (WinSound) { UGameplayStatics::PlaySoundAtLocation(this, WinSound, GetActorLocation()); } //play sound
 
 	//if skeletal mesh component exists, animate death
 	if (PlayerSMC) { PlayerSMC->PlayAnimation(DeathAnim, false); }

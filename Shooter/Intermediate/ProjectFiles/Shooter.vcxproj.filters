@@ -13,6 +13,7 @@
     </None>
     <None Include="..\..\.gitignore" />
     <None Include="..\..\.vsconfig" />
+    <None Include="..\..\Shooter.png" />
     <Filter Include="Config">
       <UniqueIdentifier>{FA535FFB-25E1-3D20-B416-52F9BE21E06E}</UniqueIdentifier>
     </Filter>
@@ -47,6 +48,12 @@
       <Filter>Source\Shooter\Scripts</Filter>
     </ClCompile>
     <ClInclude Include="..\..\Source\Shooter\Scripts\Bullet.h">
+      <Filter>Source\Shooter\Scripts</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\Shooter\Scripts\Pickup.cpp">
+      <Filter>Source\Shooter\Scripts</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\Shooter\Scripts\Pickup.h">
       <Filter>Source\Shooter\Scripts</Filter>
     </ClInclude>
     <ClCompile Include="..\..\Source\Shooter\Scripts\Player1Character.cpp">

@@ -20,7 +20,11 @@ class SHOOTER_API APlayerCharacter : public ACharacter
 
 	const float centerHeightOffset = 45;
 
-	const float maxHealth = 100;
+	const float maxAmmo = 30;
+	const float maxHealth = 200;
+	const float damageAmount = 5;
+	const float healAmount = 7;
+
 	const float moveSpeed = 1000;
 	const float jumpHeight = 0.5;
 	const float shootForce = 40000;
@@ -34,7 +38,7 @@ public:
 
 
 	//bullet reference
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		TSubclassOf<ABullet> BulletBP;
 
 	//spring arm component
@@ -44,6 +48,24 @@ public:
 	//camera component
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	class UCameraComponent* CameraComp;
+
+	//sounds
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	class USoundBase* JumpSound;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	class USoundBase* StartAimSound;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	class USoundBase* StopAimSound;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	class USoundBase* ShootSound;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	class USoundBase* ReloadSound;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	class USoundBase* DamageSound;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	class USoundBase* HealSound;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	class USoundBase* WinSound;
 
 
 	//input functions
@@ -60,8 +82,9 @@ public:
 	void Shoot();
 
 
-	//player damage function
+	//player damage and heal function
 	void PlayerTakeDamage();
+	void PlayerHeal();
 
 
 	//animation assets
@@ -90,6 +113,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "UI C++")
 		UUserWidget* HUDOverlay;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "UI C++")
+		UUserWidget* AimingOverlay;
+
 	//player health
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "UI C++")
 		float health;
@@ -98,9 +124,12 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+	//ammo stuff
+	bool reloading;
+	int ammo;
+	void ReloadAmmo();
 	//close controls UI
 	void CloseControls();
-
 	//game ending
 	void EndGame();
 

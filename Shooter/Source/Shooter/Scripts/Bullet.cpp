@@ -20,7 +20,7 @@ ABullet::ABullet()
 	//mesh collision
 	BulletMesh->SetGenerateOverlapEvents(true);
 	BulletMesh->CanCharacterStepUpOn = ECB_No;
-	BulletMesh->SetCollisionProfileName(TEXT("Bullet"));
+	BulletMesh->SetCollisionProfileName(TEXT("PawnOverlap"));
 
 	//set lifespan
 	InitialLifeSpan = 10;
