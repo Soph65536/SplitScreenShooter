@@ -13,10 +13,6 @@ UCLASS()
 class SHOOTER_API APlayer1Character : public APlayerCharacter
 {
 	GENERATED_BODY()
-
-	const float centerHeightOffset = 45;
-
-	const float maxHealth = 100;
 	
 public:
 	// Sets default values for this character's properties

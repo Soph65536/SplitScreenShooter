@@ -22,8 +22,9 @@ class SHOOTER_API APlayerCharacter : public ACharacter
 
 	const float maxAmmo = 30;
 	const float maxHealth = 200;
-	const float damageAmount = 5;
-	const float healAmount = 7;
+	const float bodyDamage = 10;
+	const float headDamage = 50;
+	const float healAmount = 15;
 
 	const float moveSpeed = 1000;
 	const float jumpHeight = 0.5;
@@ -79,15 +80,21 @@ public:
 
 	void StartAiming();
 	void StopAiming();
+
 	void Shoot();
+	void Melee();
 
 
 	//player damage and heal function
-	void PlayerTakeDamage();
+	void PlayerTakeDamage(bool shotHead);
 	void PlayerHeal();
 
 
 	//animation assets
+	UPROPERTY(EditAnywhere)
+		UAnimationAsset* MeleeAnim;
+	UPROPERTY(EditAnywhere)
+		UAnimationAsset* ReloadAnim;
 	UPROPERTY(EditAnywhere)
 		UAnimationAsset* DeathAnim;
 
@@ -116,9 +123,14 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "UI C++")
 		UUserWidget* AimingOverlay;
 
-	//player health
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "UI C++")
+		UUserWidget* ReloadingOverlay;
+
+	//ui bp variables
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "UI C++")
 		float health;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "UI C++")
+		int ammo;
 
 protected:
 	// Called when the game starts or when spawned
@@ -126,10 +138,11 @@ protected:
 
 	//ammo stuff
 	bool reloading;
-	int ammo;
 	void ReloadAmmo();
 	//close controls UI
 	void CloseControls();
+	//reset animation to blueprint after playing animation asset
+	void ResetAnimationBP();
 	//game ending
 	void EndGame();
 

@@ -66,6 +66,12 @@ void APlayerCharacter::BeginPlay()
 		AimingOverlay->SetVisibility(ESlateVisibility::Hidden);
 	}
 
+	//add reloading overlay for when player is reloading
+	if (ReloadingOverlay) {
+		ReloadingOverlay->AddToViewport();
+		ReloadingOverlay->SetVisibility(ESlateVisibility::Hidden);
+	}
+
 	//add controls ui for a set time
 	if (ControlsOverlay) {
 		ControlsOverlay->AddToViewport();
@@ -85,8 +91,8 @@ void APlayerCharacter::Tick(float DeltaTime)
 }
 
 
-void APlayerCharacter::PlayerTakeDamage() {
-	health -= damageAmount; //remove health
+void APlayerCharacter::PlayerTakeDamage(bool shotHead) {
+	health -= shotHead ? headDamage : bodyDamage; //remove health
 	if (DamageSound) { UGameplayStatics::PlaySoundAtLocation(this, DamageSound, GetActorLocation()); } //play sound
 
 	if (health <= 0) { EndGame(); } //endgame if player has died
@@ -113,8 +119,9 @@ void APlayerCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 
 	PlayerInputComponent->BindAction("P0Aim", IE_Pressed, this, &APlayerCharacter::StartAiming);
 	PlayerInputComponent->BindAction("P0Aim", IE_Released, this, &APlayerCharacter::StopAiming);
+
 	PlayerInputComponent->BindAction("P0Shoot", IE_Pressed, this, &APlayerCharacter::Shoot);
-	
+	PlayerInputComponent->BindAction("P0Melee", IE_Pressed, this, &APlayerCharacter::Melee);
 }
 
 
@@ -195,7 +202,17 @@ void APlayerCharacter::Shoot() {
 
 		//check if need to reload
 		if (ammo <= 0) {
+			if (ReloadingOverlay) { ReloadingOverlay->SetVisibility(ESlateVisibility::Visible); } // ui overlay
+
 			if (ReloadSound) { UGameplayStatics::PlaySoundAtLocation(this, ReloadSound, GetActorLocation()); } //play sound
+
+			//animate reloading
+			if (PlayerSMC) {
+				PlayerSMC->PlayAnimation(ReloadAnim, false);
+				//reanimate with bp after playing animation
+				FTimerHandle UnusedHandle;
+				GetWorldTimerManager().SetTimer(UnusedHandle, this, &APlayerCharacter::ResetAnimationBP, 2, false);
+			}
 			
 			reloading = true;
 			//create a timer that calls reload after 2secs
@@ -205,14 +222,60 @@ void APlayerCharacter::Shoot() {
 	}
 }
 
+void APlayerCharacter::Melee() {
+	//sweep linetrace params
+	TArray<FHitResult> HitResults;
+	FVector StartLocation = GetActorLocation() + FVector(0, 0, centerHeightOffset);
+	FVector EndLocation = FRotationMatrix(GetControlRotation()).GetUnitAxis(EAxis::X) * 200 + StartLocation; //forward vector *200 + startlocation
+	ECollisionChannel ECC = ECollisionChannel::ECC_PhysicsBody;
+	
+	//sweep linetrace shape
+	FCollisionShape CollisionShape;
+	CollisionShape.ShapeType = ECollisionShape::Box;
+	CollisionShape.SetBox(FVector3f(100, 10, 100));
+
+	//list of names of players hit, starting with this 
+	//to make sure doesnt attack self
+	//and doesnt attack same character twice
+	TArray<FString> HitCharacters;
+	HitCharacters.Add(this->GetName());
+
+	if (GetWorld()->SweepMultiByChannel(HitResults, StartLocation, EndLocation, FQuat(), ECC, CollisionShape)) {
+		for (auto It = HitResults.CreateIterator(); It; It++) {
+			APlayerCharacter* PlayerCharacter = Cast<APlayerCharacter>((*It).GetActor());
+
+			if (PlayerCharacter != nullptr) { //check for player character
+				if (!HitCharacters.Contains(PlayerCharacter->GetName())) { //check if hit before or self
+					HitCharacters.Add(PlayerCharacter->GetName()); //add to characters hit
+					PlayerCharacter->PlayerTakeDamage(false);
+				}
+			}
+		}
+	}
+
+	//animate melee attack
+	if (PlayerSMC) { 
+		PlayerSMC->PlayAnimation(MeleeAnim, false); 
+		//reanimate with bp after playing animation
+		FTimerHandle UnusedHandle;
+		GetWorldTimerManager().SetTimer(UnusedHandle, this, &APlayerCharacter::ResetAnimationBP, 1.5f, false);
+	}
+}
+
 
 void APlayerCharacter::ReloadAmmo() {
+	if (ReloadingOverlay) { ReloadingOverlay->SetVisibility(ESlateVisibility::Hidden); } // ui overlay
+
 	reloading = false;
 	ammo = maxAmmo;
 }
 
 void APlayerCharacter::CloseControls() {
 	ControlsOverlay->SetVisibility(ESlateVisibility::Hidden);
+}
+
+void APlayerCharacter::ResetAnimationBP() {
+	if (PlayerSMC) { PlayerSMC->SetAnimationMode(EAnimationMode::AnimationBlueprint); }
 }
 
 void APlayerCharacter::EndGame() {
@@ -226,7 +289,9 @@ void APlayerCharacter::EndGame() {
 	if (WinSound) { UGameplayStatics::PlaySoundAtLocation(this, WinSound, GetActorLocation()); } //play sound
 
 	//if skeletal mesh component exists, animate death
-	if (PlayerSMC) { PlayerSMC->PlayAnimation(DeathAnim, false); }
+	if (PlayerSMC) { 
+		PlayerSMC->PlayAnimation(DeathAnim, false); 
+	}
 
 	SetLifeSpan(2); //destroy after 2 seconds
 }

@@ -52,7 +52,12 @@ void ABullet::OnOverlapStart(UPrimitiveComponent* OverlappedComponent, AActor* O
 	if (PlayerCharacter != Player) {
 		//take damage if it is hitting a player
 		if (PlayerCharacter != nullptr) {
-			PlayerCharacter->PlayerTakeDamage();
+			bool hitHead = false; //bool for shothead parameter
+
+			//check if overlapped component is head of player
+			if (OtherComp->ComponentHasTag(TEXT("Head"))) { hitHead = true; }
+			
+			PlayerCharacter->PlayerTakeDamage(hitHead);
 		}
 		//destroy after overlapping with an object
 		Destroy();

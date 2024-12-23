@@ -11,9 +11,6 @@ APlayer1Character::APlayer1Character()
 
 	//autoposses the right player
 	AutoPossessPlayer = EAutoReceiveInput::Player1;
-
-	//set health
-	health = maxHealth;
 }
 
 // Called to bind functionality to input
@@ -31,6 +28,8 @@ void APlayer1Character::SetupPlayerInputComponent(UInputComponent* PlayerInputCo
 
 	PlayerInputComponent->BindAction("P1Aim", IE_Pressed, this, &APlayerCharacter::StartAiming);
 	PlayerInputComponent->BindAction("P1Aim", IE_Released, this, &APlayerCharacter::StopAiming);
+
 	PlayerInputComponent->BindAction("P1Shoot", IE_Pressed, this, &APlayerCharacter::Shoot);
+	PlayerInputComponent->BindAction("P1Melee", IE_Pressed, this, &APlayerCharacter::Melee);
 
 }
