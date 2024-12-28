@@ -19,10 +19,14 @@ APlayerCharacter::APlayerCharacter()
 	//autoposses the right player
 	AutoPossessPlayer = EAutoReceiveInput::Player0;
 
-	//set variable
+	//set variables
 	reloading = false;
-	ammo = maxAmmo;
+	
 	health = maxHealth;
+	ammo = maxAmmo;
+	wins = 0;
+
+	isDeathing = false;
 
 	//set movespeed
 	GetCharacterMovement()->MaxWalkSpeed = moveSpeed;
@@ -72,6 +76,12 @@ void APlayerCharacter::BeginPlay()
 		ReloadingOverlay->SetVisibility(ESlateVisibility::Hidden);
 	}
 
+	//add win screen overlay for when this player wins
+	if (LoseScreenOverlay) {
+		LoseScreenOverlay->AddToViewport();
+		LoseScreenOverlay->SetVisibility(ESlateVisibility::Hidden);
+	}
+
 	//add controls ui for a set time
 	if (ControlsOverlay) {
 		ControlsOverlay->AddToViewport();
@@ -92,10 +102,18 @@ void APlayerCharacter::Tick(float DeltaTime)
 
 
 void APlayerCharacter::PlayerTakeDamage(bool shotHead) {
-	health -= shotHead ? headDamage : bodyDamage; //remove health
-	if (DamageSound) { UGameplayStatics::PlaySoundAtLocation(this, DamageSound, GetActorLocation()); } //play sound
+	//isdeathing var prevents endgame from being called multiple times and stops attacking during death
+	if (!isDeathing) {
+		health -= shotHead ? headDamage : bodyDamage; //remove health
+		if (DamageSound) { UGameplayStatics::PlaySoundAtLocation(this, DamageSound, GetActorLocation()); } //play sound
 
-	if (health <= 0) { EndGame(); } //endgame if player has died
+		//endgame if player has died
+		if (health <= 0) {
+			isDeathing = true;
+			health = 0;
+			EndGame();
+		}
+	}
 }
 
 void APlayerCharacter::PlayerHeal() {
@@ -281,17 +299,50 @@ void APlayerCharacter::ResetAnimationBP() {
 void APlayerCharacter::EndGame() {
 	//show lose screen
 	if (LoseScreenOverlay) {
-		LoseScreenOverlay->AddToViewport();
 		LoseScreenOverlay->SetVisibility(ESlateVisibility::Visible);
 	}
+
+	//add win to other player
+	OtherPlayer->wins++;
 
 	//play win sound
 	if (WinSound) { UGameplayStatics::PlaySoundAtLocation(this, WinSound, GetActorLocation()); } //play sound
 
 	//if skeletal mesh component exists, animate death
-	if (PlayerSMC) { 
-		PlayerSMC->PlayAnimation(DeathAnim, false); 
+	if (PlayerSMC) {
+		PlayerSMC->PlayAnimation(DeathAnim, false);
 	}
 
-	SetLifeSpan(2); //destroy after 2 seconds
+	//if not last round then reset players after 2 seconds
+	if (currentRound < 3) {
+		currentRound++;
+		FTimerHandle UnusedHandle;
+		GetWorldTimerManager().SetTimer(UnusedHandle, this, &APlayerCharacter::ResetPlayers, 5, false);
+	}
+}
+
+void APlayerCharacter::ResetPlayers() {
+	//hide lose screen
+	if (LoseScreenOverlay) {
+		LoseScreenOverlay->SetVisibility(ESlateVisibility::Hidden);
+	}
+
+	//set positions
+	SetActorLocation(PlayerStart);
+	OtherPlayer->SetActorLocation(OtherPlayer->PlayerStart);
+
+	//reset animation of this player since they just died animation
+	ResetAnimationBP();
+
+	//set variables
+	reloading = false;
+	OtherPlayer->reloading = false;
+
+	health = maxHealth;
+	OtherPlayer->health = maxHealth;
+	ammo = maxAmmo;
+	OtherPlayer->ammo = maxAmmo;
+
+	//no longer isdeathing
+	isDeathing = false;
 }

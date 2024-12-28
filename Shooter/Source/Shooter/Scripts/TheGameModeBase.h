@@ -13,5 +13,13 @@ UCLASS()
 class SHOOTER_API ATheGameModeBase : public AGameModeBase
 {
 	GENERATED_BODY()
-	
+		
+
+public:
+	UPROPERTY(BlueprintReadOnly)
+		float RoundLengthSecs = 180;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		float RoundTimer;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		int CurrentRound;
 };

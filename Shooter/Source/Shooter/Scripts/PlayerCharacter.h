@@ -89,6 +89,23 @@ public:
 	void PlayerTakeDamage(bool shotHead);
 	void PlayerHeal();
 
+	//game ending
+	UFUNCTION(BlueprintCallable)
+	void EndGame();
+	//resets player after round ends
+	void ResetPlayers(); 
+	//starting pos
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Variables C++")
+		FVector PlayerStart;
+	//for when death stop end game happening multiple times when die
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Variables C++")
+		bool isDeathing;
+	// //-ref to current round
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "Variables C++")
+		int currentRound;
+	//-ref to other player so that can add to their wins when this player loses
+	UPROPERTY(BlueprintReadWrite, EditAnywhere)
+	APlayerCharacter* OtherPlayer;
 
 	//animation assets
 	UPROPERTY(EditAnywhere)
@@ -126,25 +143,27 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "UI C++")
 		UUserWidget* ReloadingOverlay;
 
-	//ui bp variables
+	//UI BP variables
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "UI C++")
 		float health;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "UI C++")
 		int ammo;
+	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "UI C++")
+		int wins;
+	
+	//ammo stuff
+	bool reloading;
 
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
 	//ammo stuff
-	bool reloading;
 	void ReloadAmmo();
 	//close controls UI
 	void CloseControls();
 	//reset animation to blueprint after playing animation asset
 	void ResetAnimationBP();
-	//game ending
-	void EndGame();
 
 public:	
 	// Called every frame
