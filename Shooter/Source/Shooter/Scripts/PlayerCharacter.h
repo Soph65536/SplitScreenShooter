@@ -64,7 +64,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	class USoundBase* DamageSound;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	class USoundBase* HealSound;
+	class USoundBase* HealPickupSound;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		class USoundBase* AmmoPickupSound;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	class USoundBase* WinSound;
 
@@ -85,9 +87,9 @@ public:
 	void Melee();
 
 
-	//player damage and heal function
+	//player damage and pickup function
 	void PlayerTakeDamage(bool shotHead);
-	void PlayerHeal();
+	void PlayerPickup(int WhichPickup);
 
 	//game ending
 	UFUNCTION(BlueprintCallable)
@@ -164,6 +166,10 @@ protected:
 	void CloseControls();
 	//reset animation to blueprint after playing animation asset
 	void ResetAnimationBP();
+
+	//pickup functions
+	void PlayerHealPickup();
+	void PlayerAmmoPickup();
 
 public:	
 	// Called every frame

@@ -116,9 +116,17 @@ void APlayerCharacter::PlayerTakeDamage(bool shotHead) {
 	}
 }
 
-void APlayerCharacter::PlayerHeal() {
-	if (health < maxHealth) { health += healAmount; } //add health if below max
-	if (HealSound) { UGameplayStatics::PlaySoundAtLocation(this, HealSound, GetActorLocation()); } //play sound
+void APlayerCharacter::PlayerPickup(int WhichPickup) {
+	switch (WhichPickup) {
+	case 0:
+		PlayerHealPickup();
+		break;
+	case 1:
+		PlayerAmmoPickup();
+		break;
+	default:
+		break;
+	}
 }
 
 
@@ -294,6 +302,21 @@ void APlayerCharacter::CloseControls() {
 
 void APlayerCharacter::ResetAnimationBP() {
 	if (PlayerSMC) { PlayerSMC->SetAnimationMode(EAnimationMode::AnimationBlueprint); }
+}
+
+void APlayerCharacter::PlayerHealPickup() {
+	//add health and cap at maxHealth
+	health += healAmount;
+	if (health > maxHealth) { health = maxHealth; }
+
+	if (HealPickupSound) { UGameplayStatics::PlaySoundAtLocation(this, HealPickupSound, GetActorLocation()); } //play sound
+}
+
+void APlayerCharacter::PlayerAmmoPickup() {
+	//add 20 ammo
+	ammo += 20;
+
+	if (AmmoPickupSound) { UGameplayStatics::PlaySoundAtLocation(this, AmmoPickupSound, GetActorLocation()); } //play sound
 }
 
 void APlayerCharacter::EndGame() {

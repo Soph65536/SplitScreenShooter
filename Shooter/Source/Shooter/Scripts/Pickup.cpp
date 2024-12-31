@@ -48,7 +48,7 @@ void APickup::OnOverlapStart(UPrimitiveComponent* OverlappedComponent, AActor* O
 
 	//heal if it is overlapped by a player
 	if (PlayerCharacter != nullptr) {
-		PlayerCharacter->PlayerHeal();
+		PlayerCharacter->PlayerPickup(WhichPickup);
 	}
 	//destroy after overlapping with an object
 	Destroy();

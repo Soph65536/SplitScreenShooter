@@ -18,6 +18,9 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		class UStaticMeshComponent* PickupMesh;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		int WhichPickup;
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
