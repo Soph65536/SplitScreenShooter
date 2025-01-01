@@ -8,15 +8,12 @@ APlayer1Character::APlayer1Character()
 {
 	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
-
-	//autoposses the right player
-	AutoPossessPlayer = EAutoReceiveInput::Player1;
 }
 
 // Called to bind functionality to input
 void APlayer1Character::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
-	Super::SetupPlayerInputComponent(PlayerInputComponent);
+	Super::Super::SetupPlayerInputComponent(PlayerInputComponent);
 
 	PlayerInputComponent->BindAxis("P1MovementHorizontal", this, &APlayerCharacter::MoveHorizontal);
 	PlayerInputComponent->BindAxis("P1MovementVertical", this, &APlayerCharacter::MoveVertical);

@@ -16,8 +16,8 @@ APlayerCharacter::APlayerCharacter()
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
-	//autoposses the right player
-	AutoPossessPlayer = EAutoReceiveInput::Player0;
+	//turn off autopossession so we can manually possess in the character BP
+	AutoPossessPlayer = EAutoReceiveInput::Disabled;
 
 	//set variables
 	reloading = false;
